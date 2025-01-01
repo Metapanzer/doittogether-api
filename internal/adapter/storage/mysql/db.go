@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"DoItTogether/internal/adapter/config"
+	"DoItTogether/internal/core/domain"
 	"fmt"
 
 	"gorm.io/driver/mysql"
@@ -25,6 +26,8 @@ func New(config *config.DB) (*DB, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	db.AutoMigrate(&domain.User{}, &domain.Campaign{}, &domain.CampaignImage{}, &domain.Transaction{})
 
 	fmt.Println("Connected to database")
 	return &DB{Conn: db}, nil

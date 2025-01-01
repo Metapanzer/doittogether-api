@@ -1,17 +1,21 @@
 package domain
 
-import "gorm.io/gorm"
+import (
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
 
 // Campaign is an entity that represents a campaign
 type Campaign struct {
 	gorm.Model
-	UserID           int
-	Name             string
-	ShortDescription string
-	Description      string
-	GoalAmount       int
-	CurrentAmount    int
-	BackerCount      int
-	Perks            string
-	Slug             string
+	ID               uuid.UUID `gorm:"primaryKey;type:char(36)"`
+	UserID           uuid.UUID `gorm:"type:char(36)"`
+	Name             string    `gorm:"type:varchar(255)"`
+	ShortDescription string    `gorm:"type:varchar(255)"`
+	Description      string    `gorm:"type:text"`
+	GoalAmount       int       `gorm:"type:bigint"`
+	CurrentAmount    int       `gorm:"type:bigint"`
+	BackerCount      uint32    `gorm:"type:int"`
+	Perks            string    `gorm:"type:text"`
+	Slug             string    `gorm:"type:varchar(255)"`
 }

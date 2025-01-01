@@ -49,7 +49,7 @@ type (
 // New creates a new container instance
 func New() (*Container, error) {
 	if os.Getenv("APP_ENV") != "production" {
-		err := godotenv.Load("../../.env")
+		err := godotenv.Load(".env")
 		if err != nil {
 			return nil, err
 		}

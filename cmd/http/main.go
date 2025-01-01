@@ -7,12 +7,14 @@ import (
 )
 
 func main() {
+	// Load configuration
 	cfg, err := config.New()
 	if err != nil {
 		log.Fatal(err)
 		panic(err)
 	}
 
+	// Connect to MySQL
 	mysql.New(cfg.DB)
 
 }
