@@ -1,4 +1,4 @@
-package domain
+package entity
 
 import (
 	"github.com/google/uuid"
@@ -19,3 +19,5 @@ type Campaign struct {
 	Perks            string    `gorm:"type:text"`
 	Slug             string    `gorm:"type:varchar(255)"`
 }
+
+type Campaigns []Campaign

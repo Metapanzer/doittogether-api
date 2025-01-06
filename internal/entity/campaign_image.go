@@ -1,4 +1,4 @@
-package domain
+package entity
 
 import (
 	"github.com/google/uuid"
@@ -12,3 +12,5 @@ type CampaignImage struct {
 	ImageFilename string    `gorm:"type:varchar(255)"`
 	IsPrimary     bool      `gorm:"type:tinyint;default:0"`
 }
+
+type CampaignImages []CampaignImage

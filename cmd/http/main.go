@@ -1,20 +1,30 @@
 package main
 
 import (
-	"DoItTogether/internal/adapter/config"
-	"DoItTogether/internal/adapter/storage/mysql"
+	"DoItTogether/internal/config"
+	"DoItTogether/internal/entity"
+	"DoItTogether/internal/repository"
+	"DoItTogether/internal/usecase"
 	"log"
 )
 
 func main() {
 	// Load configuration
-	cfg, err := config.New()
+	viperConfig := config.LoadConfig()
+
+	// Connect to MySQL
+	DBConn, err := config.NewDatabase(viperConfig)
 	if err != nil {
 		log.Fatal(err)
 		panic(err)
 	}
 
-	// Connect to MySQL
-	mysql.New(cfg.DB)
+	DBConn.AutoMigrate(&entity.User{}, &entity.Campaign{}, &entity.CampaignImage{}, &entity.Transaction{})
+
+	// Initialize repository
+	UserRepository := repository.NewUserRepository(DBConn)
+
+	// Initialize service
+	UserUsecase := usecase.NewUserUsecase(UserRepository)
 
 }

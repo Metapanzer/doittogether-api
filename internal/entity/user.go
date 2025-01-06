@@ -1,4 +1,4 @@
-package domain
+package entity
 
 import (
 	"github.com/google/uuid"
@@ -17,3 +17,5 @@ type User struct {
 	Role           string    `gorm:"type:enum('user','admin');default:'user'"`
 	Token          string    `gorm:"type:varchar(255)"`
 }
+
+type Users []User
