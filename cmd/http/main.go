@@ -2,10 +2,9 @@ package main
 
 import (
 	"DoItTogether/internal/config"
-	"DoItTogether/internal/entity"
-	"DoItTogether/internal/repository"
-	"DoItTogether/internal/usecase"
 	"log"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -13,18 +12,19 @@ func main() {
 	viperConfig := config.LoadConfig()
 
 	// Connect to MySQL
-	DBConn, err := config.NewDatabase(viperConfig)
-	if err != nil {
-		log.Fatal(err)
-		panic(err)
+	DBConn := config.NewDatabase(viperConfig)
+	app := gin.Default()
+	cfg := config.AppConfig{
+		DB:     DBConn,
+		App:    app,
+		Config: viperConfig,
 	}
 
-	DBConn.AutoMigrate(&entity.User{}, &entity.Campaign{}, &entity.CampaignImage{}, &entity.Transaction{})
+	cfg.Init()
 
-	// Initialize repository
-	UserRepository := repository.NewUserRepository(DBConn)
-
-	// Initialize service
-	UserUsecase := usecase.NewUserUsecase(UserRepository)
+	err := app.Run()
+	if err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
 
 }

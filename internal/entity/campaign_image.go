@@ -12,5 +12,3 @@ type CampaignImage struct {
 	ImageFilename string    `gorm:"type:varchar(255)"`
 	IsPrimary     bool      `gorm:"type:tinyint;default:0"`
 }
-
-type CampaignImages []CampaignImage

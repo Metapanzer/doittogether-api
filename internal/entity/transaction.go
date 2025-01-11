@@ -15,5 +15,3 @@ type Transaction struct {
 	Status     string    `gorm:"type:varchar(50)"`
 	Code       string    `gorm:"type:varchar(100)"`
 }
-
-type Transactions []Transaction

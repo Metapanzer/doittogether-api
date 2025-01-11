@@ -19,5 +19,3 @@ type Campaign struct {
 	Perks            string    `gorm:"type:text"`
 	Slug             string    `gorm:"type:varchar(255)"`
 }
-
-type Campaigns []Campaign
